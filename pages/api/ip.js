@@ -1,9 +1,11 @@
 export default function handler(req, res) {
   const ip =
     req.headers['x-forwarded-for'] ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    null;
+    req.connection?.remoteAddress ||
+    req.socket?.remoteAddress ||
+    'Unknown IP';
 
-  res.status(200).json({ ip });
+  console.log('Requester IP:', ip); // prints in Vercel logs
+
+  res.status(200).send('IP logged to console.');
 }
